@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sports Office Login</title>
 
 <style>
@@ -19,7 +18,7 @@ body{
 
 /* MAIN BACKGROUND */
 .wrapper{
-    min-height:100vh;
+    height:100vh;
     background:
         linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
         url("scc4.jpg");
@@ -27,12 +26,9 @@ body{
     background-position:center;
     display:flex;
     align-items:center;
-    justify-content:center;
-    gap:60px;
-    padding:60px;
+    padding:100px;
     color:white;
 }
-
 
 /* LEFT CONTENT */
 .left{
@@ -103,8 +99,7 @@ body{
 
 .field input{
     width:100%;
-    padding:12px;
-    fonsize:14px
+    padding:10px;
     border-radius:6px;
     border:1px solid rgba(255,255,255,0.4);
     background:rgba(255,255,255,0.18);
@@ -165,144 +160,17 @@ button:hover{
 }
 
 /* RESPONSIVE */
-@media (max-width: 768px) {
-    .wrapper {
-        flex-direction: column;
-        padding: 30px 20px;
-        gap: 30px;
-        text-align: center;
+@media(max-width:900px){
+    .wrapper{
+        flex-direction:column;
+        padding:40px;
+        text-align:center;
     }
 
-    .left {
-        max-width: 100%;
-    }
-
-    .left h1 {
-        font-size: 30px;
-    }
-
-    .left h3 {
-        font-size: 17px;
-    }
-
-    .left p {
-        font-size: 14px;
-    }
-
-    .login-card {
-        width: 100%;
-        max-width: 380px;
-        margin-left: 0;
-        padding: 28px 22px;
+    .login-card{
+        margin:40px 0 0;
     }
 }
-
-@media (max-width: 480px) {
-    .left h1 {
-        font-size: 26px;
-    }
-
-    .left h3 {
-        font-size: 15px;
-    }
-
-    .left p {
-        font-size: 13px;
-    }
-
-    .login-card h2 {
-        font-size: 24px;
-    }
-}
-
-    @media (max-width: 768px) {
-    /* Hide left content */
-    .left {
-        display: none;
-    }
-
-    /* Center login card only */
-    .wrapper {
-        padding: 20px;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .login-card {
-        margin-left: 0;
-        width: 100%;
-        max-width: 360px;
-        padding: 30px 22px;
-    }
-}
-@media (max-width: 768px) {
-    .wrapper {
-        background:
-            linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
-            url("scc4.jpg");
-        background-size: cover;
-        background-position: center;
-    }
-}
-
-
-/* EXTRA SMALL DEVICES (phones) */
-@media (max-width: 480px) {
-    .wrapper {
-        padding: 20px 15px;
-    }
-
-    .left h1 {
-        font-size: 26px;
-    }
-
-    .left h3 {
-        font-size: 16px;
-    }
-
-    .left p {
-        font-size: 13px;
-    }
-
-    .login-card {
-        padding: 25px 20px;
-        border-radius: 14px;
-    }
-
-    button {
-        font-size: 14px;
-        padding: 10px;
-    }
-}
-.login-card{
-    animation: fadeSlide 0.8s ease forwards;
-}
-
-@keyframes fadeSlide{
-    from{
-        opacity:0;
-        transform:translateY(30px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-    .password-box{
-    position:relative;
-}
-
-.toggle-eye{
-    position:absolute;
-    right:10px;
-    top:50%;
-    transform:translateY(-50%);
-    cursor:pointer;
-    font-size:16px;
-    opacity:0.8;
-}
-
-
 </style>
 </head>
 
@@ -334,11 +202,8 @@ button:hover{
 
             <div class="field">
                 <label>Password</label>
-               <div class="password-box">
-    <input type="password" id="password" placeholder="Enter password" required>
-    <span class="toggle-eye" onclick="togglePassword()">👁</span>
-</div>
-
+                <input type="password" id="password" required>
+            </div>
 
             <div class="options">
                 <input type="checkbox">
@@ -366,18 +231,7 @@ document.getElementById("loginForm").addEventListener("submit", function(e){
         error.textContent = "Invalid username or password";
     }
 });
-    <script>
-function togglePassword(){
-    const pass = document.getElementById("password");
-    pass.type = pass.type === "password" ? "text" : "password";
-}
-</script>
-
 </script>
 
 </body>
 </html>
-
-
-
-
