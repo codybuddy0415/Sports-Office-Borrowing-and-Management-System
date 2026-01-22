@@ -215,6 +215,37 @@ button:hover{
     }
 }
 
+    @media (max-width: 768px) {
+    /* Hide left content */
+    .left {
+        display: none;
+    }
+
+    /* Center login card only */
+    .wrapper {
+        padding: 20px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .login-card {
+        margin-left: 0;
+        width: 100%;
+        max-width: 360px;
+        padding: 30px 22px;
+    }
+}
+@media (max-width: 768px) {
+    .wrapper {
+        background:
+            linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+            url("scc4.jpg");
+        background-size: cover;
+        background-position: center;
+    }
+}
+
+
 /* EXTRA SMALL DEVICES (phones) */
 @media (max-width: 480px) {
     .wrapper {
@@ -308,5 +339,6 @@ document.getElementById("loginForm").addEventListener("submit", function(e){
 
 </body>
 </html>
+
 
 
