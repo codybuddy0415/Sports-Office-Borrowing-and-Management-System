@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sports Office Login</title>
 
 <style>
@@ -13,7 +12,9 @@
     font-family:Arial, Helvetica, sans-serif;
 }
 
-
+body{
+    height:100vh;
+}
 
 /* MAIN BACKGROUND */
 .wrapper{
@@ -58,6 +59,7 @@
 
 /* GLASS LOGIN CARD */
 .login-card{
+    margin-left:clamp(40px, 10vw, 160px);
     width:360px;
     padding:40px;
     border-radius:16px;
@@ -169,55 +171,6 @@ button:hover{
         margin:40px 0 0;
     }
 }
-    @media (max-width: 768px) {
-    /* Hide left content */
-    .left {
-        display: none;
-    }
-
-    /* Center login card only */
-    .wrapper {
-        padding: 20px;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .login-card {
-        margin-left: 0;
-        width: 100%;
-        max-width: 360px;
-        padding: 30px 22px;
-    }
-}
-@media (max-width: 768px) {
-    .wrapper {
-        background:
-            linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
-            url("scc4.jpg");
-        background-size: cover;
-        background-position: center;
-    }
-}
-    @media (max-width: 768px) {
-
-    .left{
-        display:none;
-    }
-
-    .wrapper{
-        padding:20px;
-        justify-content:center;
-        align-items:center;
-    }
-
-    .login-card{
-        width:100%;
-        max-width:360px;
-        padding:30px 22px;
-    }
-}
-
-
 </style>
 </head>
 
@@ -282,5 +235,3 @@ document.getElementById("loginForm").addEventListener("submit", function(e){
 
 </body>
 </html>
-
-
