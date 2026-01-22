@@ -274,6 +274,34 @@ button:hover{
         padding: 10px;
     }
 }
+.login-card{
+    animation: fadeSlide 0.8s ease forwards;
+}
+
+@keyframes fadeSlide{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+    .password-box{
+    position:relative;
+}
+
+.toggle-eye{
+    position:absolute;
+    right:10px;
+    top:50%;
+    transform:translateY(-50%);
+    cursor:pointer;
+    font-size:16px;
+    opacity:0.8;
+}
+
 
 </style>
 </head>
@@ -306,8 +334,11 @@ button:hover{
 
             <div class="field">
                 <label>Password</label>
-                <input type="password" id="password" required>
-            </div>
+               <div class="password-box">
+    <input type="password" id="password" placeholder="Enter password" required>
+    <span class="toggle-eye" onclick="togglePassword()">👁</span>
+</div>
+
 
             <div class="options">
                 <input type="checkbox">
@@ -335,10 +366,18 @@ document.getElementById("loginForm").addEventListener("submit", function(e){
         error.textContent = "Invalid username or password";
     }
 });
+    <script>
+function togglePassword(){
+    const pass = document.getElementById("password");
+    pass.type = pass.type === "password" ? "text" : "password";
+}
+</script>
+
 </script>
 
 </body>
 </html>
+
 
 
 
