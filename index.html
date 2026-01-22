@@ -19,7 +19,7 @@ body{
 
 /* MAIN BACKGROUND */
 .wrapper{
-    height:100vh;
+    min-height:100vh;
     background:
         linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
         url("scc4.jpg");
@@ -27,9 +27,12 @@ body{
     background-position:center;
     display:flex;
     align-items:center;
-    padding:100px;
+    justify-content:center;
+    gap:60px;
+    padding:60px;
     color:white;
 }
+
 
 /* LEFT CONTENT */
 .left{
@@ -162,11 +165,11 @@ button:hover{
 }
 
 /* RESPONSIVE */
-@media (max-width: 900px) {
+@media (max-width: 768px) {
     .wrapper {
         flex-direction: column;
         padding: 30px 20px;
-        justify-content: center;
+        gap: 30px;
         text-align: center;
     }
 
@@ -175,11 +178,11 @@ button:hover{
     }
 
     .left h1 {
-        font-size: 32px;
+        font-size: 30px;
     }
 
     .left h3 {
-        font-size: 18px;
+        font-size: 17px;
     }
 
     .left p {
@@ -187,10 +190,28 @@ button:hover{
     }
 
     .login-card {
-        margin: 30px 0 0;
         width: 100%;
         max-width: 380px;
-        padding: 30px 25px;
+        margin-left: 0;
+        padding: 28px 22px;
+    }
+}
+
+@media (max-width: 480px) {
+    .left h1 {
+        font-size: 26px;
+    }
+
+    .left h3 {
+        font-size: 15px;
+    }
+
+    .left p {
+        font-size: 13px;
+    }
+
+    .login-card h2 {
+        font-size: 24px;
     }
 }
 
@@ -287,4 +308,5 @@ document.getElementById("loginForm").addEventListener("submit", function(e){
 
 </body>
 </html>
+
 
