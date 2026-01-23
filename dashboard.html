@@ -91,20 +91,73 @@
         background: rgba(0, 0, 0, 0.08);
       }
       .stats {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 10px;
-        margin-bottom: 15px;
-      }
-      .card {
-        background: white;
-        padding: 35px;
-        border-radius: 8px;
-        text-align: center;
-        font-weight: bold;
-        border: px solid #9a9a9b;
-        box-shadow: 0px 5px 15px rgba(5, 21, 240, 0.438);
-      }
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.dash-card {
+  background: white;
+  border-radius: 14px;
+  padding: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease;
+}
+
+.dash-card:hover {
+  transform: translateY(-3px);
+}
+
+.dash-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  letter-spacing: 0.5px;
+}
+
+.dash-text h2 {
+  font-size: 32px;
+  margin: 6px 0;
+  color: #0f172a;
+}
+
+.dash-sub {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.dash-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e0e7ff;
+  color: #4338ca;
+  font-size: 20px;
+}
+
+/* Icon color variants */
+.dash-icon.blue {
+  background: #e0f2fe;
+  color: #0284c7;
+}
+
+.dash-icon.green {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.dash-icon.purple {
+  background: #ede9fe;
+  color: #7c3aed;
+}
+
       .section {
         background: white;
         padding: 20px;
@@ -234,6 +287,18 @@
         border: 0.5px solid #9a9a9b;
         box-shadow: 0px 5px 15px rgba(7, 164, 236, 0.25);
       }
+      body.dark .dash-card {
+  background: #020617;
+}
+
+body.dark .dash-text h2 {
+  color: white;
+}
+
+body.dark .dash-title,
+body.dark .dash-sub {
+  color: #94a3b8;
+}
 
       /* Top actions container */
       .top-actions {
@@ -556,18 +621,39 @@
                 >0</span
               >
             </div>
-            <div class="card">
-              AVAILABLE <i class="fas fa-clipboard-check"></i><br /><span
-                id="available"
-                >0</span
-              >
-            </div>
-            <div class="card">
-              BORROWERS <i class="fas fa-user-alt"></i><br /><span id="count"
-                >0</span
-              >
-            </div>
-          </div>
+           <div class="dash-card">
+  <div class="dash-text">
+    <p class="dash-title">ACTIVE BORROWS</p>
+    <h2 id="borrowed">0</h2>
+    <span class="dash-sub">Currently borrowed</span>
+  </div>
+  <div class="dash-icon blue">
+    <i class="fas fa-clipboard-list"></i>
+  </div>
+</div>
+
+<div class="dash-card">
+  <div class="dash-text">
+    <p class="dash-title">AVAILABLE</p>
+    <h2 id="available">0</h2>
+    <span class="dash-sub">Ready to use</span>
+  </div>
+  <div class="dash-icon green">
+    <i class="fas fa-check-circle"></i>
+  </div>
+</div>
+
+<div class="dash-card">
+  <div class="dash-text">
+    <p class="dash-title">BORROWERS</p>
+    <h2 id="count">0</h2>
+    <span class="dash-sub">Total students</span>
+  </div>
+  <div class="dash-icon purple">
+    <i class="fas fa-users"></i>
+  </div>
+</div>
+
           <div class="section">
             <h3>
               <i
@@ -1160,3 +1246,4 @@
     </script>
   </body>
 </html>
+
