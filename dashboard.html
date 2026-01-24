@@ -55,12 +55,12 @@
       }
       .sidebar button {
         width: 100%;
-        padding: 10px;
+        padding: 13px;
         margin-bottom: 8px;
         border: none;
         background: #142346;
         color: white;
-        border-radius: 5px;
+        border-radius: 10px;
         cursor: pointer;
       }
       .sidebar button.logout {
@@ -91,72 +91,11 @@
         background: rgba(0, 0, 0, 0.08);
       }
       .stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-bottom: 20px;
-}
-
-.dash-card {
-  background: white;
-  border-radius: 14px;
-  padding: 22px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-  transition: transform 0.2s ease;
-}
-
-.dash-card:hover {
-  transform: translateY(-3px);
-}
-
-.dash-title {
-  font-size: 12px;
-  font-weight: 600;
-  color: #64748b;
-  letter-spacing: 0.5px;
-}
-
-.dash-text h2 {
-  font-size: 32px;
-  margin: 6px 0;
-  color: #0f172a;
-}
-
-.dash-sub {
-  font-size: 12px;
-  color: #94a3b8;
-}
-
-.dash-icon {
-  width: 46px;
-  height: 46px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #e0e7ff;
-  color: #4338ca;
-  font-size: 20px;
-}
-
-/* Icon color variants */
-.dash-icon.blue {
-  background: #e0f2fe;
-  color: #0284c7;
-}
-
-.dash-icon.green {
-  background: #dcfce7;
-  color: #16a34a;
-}
-
-.dash-icon.purple {
-  background: #ede9fe;
-  color: #7c3aed;
-}
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin-bottom: 15px;
+      }
 
       .section {
         background: white;
@@ -166,6 +105,49 @@
         border: px solid #9a9a9b;
         box-shadow: 0px 5px 15px rgba(8, 44, 206, 0.555);
       }
+      /* ===== DASHBOARD CARDS (NEW STYLE) ===== */
+      .dash-card {
+        background: white;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0px 3px 10px rgba(8, 44, 206, 0.555);
+      }
+
+      /* Gray header */
+      .dash-top {
+        background: #f1f2f3bb;
+        padding: 15px 18px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 15px;
+        font-weight: 450;
+        color: #1e293b;
+        letter-spacing: 0.5px;
+      }
+
+      .dash-top i {
+        font-size: 18px;
+      }
+
+      /* Body */
+      .dash-body {
+        padding: 5px;
+        text-align: center;
+      }
+
+      .dash-body h2 {
+        font-size: 26px;
+        margin: 0;
+        color: #0f172a;
+      }
+
+      .dash-sub {
+        font-size: 12px;
+        color: #94a3b8;
+        margin-top: 6px;
+      }
+
       .hidden {
         display: none;
       }
@@ -287,18 +269,23 @@
         border: 0.5px solid #9a9a9b;
         box-shadow: 0px 5px 15px rgba(7, 164, 236, 0.25);
       }
+
       body.dark .dash-card {
-  background: #020617;
-}
+        background: #020617;
+      }
 
-body.dark .dash-text h2 {
-  color: white;
-}
+      body.dark .dash-top {
+        background: #1e293b;
+        color: #e5e7eb;
+      }
 
-body.dark .dash-title,
-body.dark .dash-sub {
-  color: #94a3b8;
-}
+      body.dark .dash-body h2 {
+        color: white;
+      }
+
+      body.dark .dash-sub {
+        color: #94a3b8;
+      }
 
       /* Top actions container */
       .top-actions {
@@ -411,7 +398,7 @@ body.dark .dash-sub {
 
         /* FIXED LOCATION */
         position: absolute;
-        bottom: 13px; /* sits above logout */
+        bottom: 18px; /* sits above logout */
         left: 20px;
         right: 20px;
       }
@@ -612,48 +599,50 @@ body.dark .dash-sub {
         <div id="dashboard">
           <h1>Dashboard</h1>
           <div class="stats">
-            <div class="card">
-              TOTAL <i class="fas fa-box"></i><br /><span id="total">0</span>
+            <div class="dash-card">
+              <div class="dash-top">
+                <span>TOTAL EQUIPMENT</span>
+                <i class="fas fa-box"></i>
+              </div>
+              <div class="dash-body">
+                <h2 id="total">0</h2>
+                <p class="dash-sub">All items in inventory</p>
+              </div>
             </div>
-            <div class="card">
-              BORROWED <i class="fas fa-clipboard-list"></i><br /><span
-                id="borrowed"
-                >0</span
-              >
+
+            <div class="dash-card">
+              <div class="dash-top">
+                <span>BORROWED</span>
+                <i class="fas fa-clipboard-list"></i>
+              </div>
+              <div class="dash-body">
+                <h2 id="borrowed">0</h2>
+                <p class="dash-sub">Currently borrowed</p>
+              </div>
             </div>
-           <div class="dash-card">
-  <div class="dash-text">
-    <p class="dash-title">ACTIVE BORROWS</p>
-    <h2 id="borrowed">0</h2>
-    <span class="dash-sub">Currently borrowed</span>
-  </div>
-  <div class="dash-icon blue">
-    <i class="fas fa-clipboard-list"></i>
-  </div>
-</div>
 
-<div class="dash-card">
-  <div class="dash-text">
-    <p class="dash-title">AVAILABLE</p>
-    <h2 id="available">0</h2>
-    <span class="dash-sub">Ready to use</span>
-  </div>
-  <div class="dash-icon green">
-    <i class="fas fa-check-circle"></i>
-  </div>
-</div>
+            <div class="dash-card">
+              <div class="dash-top">
+                <span>AVAILABLE</span>
+                <i class="fas fa-clipboard-check"></i>
+              </div>
+              <div class="dash-body">
+                <h2 id="available">0</h2>
+                <p class="dash-sub">Ready to use</p>
+              </div>
+            </div>
 
-<div class="dash-card">
-  <div class="dash-text">
-    <p class="dash-title">BORROWERS</p>
-    <h2 id="count">0</h2>
-    <span class="dash-sub">Total students</span>
-  </div>
-  <div class="dash-icon purple">
-    <i class="fas fa-users"></i>
-  </div>
-</div>
-
+            <div class="dash-card">
+              <div class="dash-top">
+                <span>BORROWERS</span>
+                <i class="fas fa-user-alt"></i>
+              </div>
+              <div class="dash-body">
+                <h2 id="count">0</h2>
+                <p class="dash-sub">Total students</p>
+              </div>
+            </div>
+          </div>
           <div class="section">
             <h3>
               <i
@@ -841,7 +830,8 @@ body.dark .dash-sub {
               </div>
             </div>
           </div>
-          <div class="table-box">
+          <div class="section">
+            <h3>Current Borrowers</h3>
             <table>
               <thead>
                 <tr>
@@ -856,7 +846,7 @@ body.dark .dash-sub {
               <tbody id="reportBorrowers"></tbody>
             </table>
           </div>
-          <div class="table-box">
+          <div class="section">
             <h3>Equipment Inventory</h3>
             <table>
               <thead>
@@ -1246,4 +1236,3 @@ body.dark .dash-sub {
     </script>
   </body>
 </html>
-
