@@ -643,16 +643,14 @@
               </div>
             </div>
           </div>
-          <div class="section">
-            <h3>
-              <i
-                class="fas fa-warning"
-                style="font-size: 25px; color: rgba(255, 0, 0, 0.829)"
-              ></i
-              >Warnings
-            </h3>
-            <ul id="warnings"></ul>
-          </div>
+          <div class="section hidden" id="warningSection">
+  <h3>
+    <i class="fas fa-warning" style="font-size: 25px; color: rgba(255, 0, 0, 0.829)"></i>
+    Warnings
+  </h3>
+  <ul id="warnings"></ul>
+</div>
+
           <div class="section">
             <h3>Current Borrowers</h3>
             <table>
@@ -925,13 +923,12 @@
         localStorage.setItem("equipments", JSON.stringify(equipments));
         localStorage.setItem("borrowers", JSON.stringify(borrowers));
       }
-
+      
       // Render all
       function render() {
         let eqTable = document.getElementById("eqTable");
         let bEquip = document.getElementById("bEquip");
         let borrowTable = document.getElementById("borrowTable");
-        let warnings = document.getElementById("warnings");
         let dashboardBorrowers = document.getElementById("dashboardBorrowers");
         let dashboardInventory = document.getElementById("dashboardInventory");
         let reportBorrowers = document.getElementById("reportBorrowers");
@@ -942,6 +939,7 @@
           dashboardBorrowers.innerHTML =
           dashboardInventory.innerHTML =
           reportBorrowers.innerHTML =
+          
             "";
 
         let today = new Date().toISOString().split("T")[0];
@@ -957,8 +955,18 @@
               : e.avail <= 2
                 ? "Low Stock"
                 : "Available";
-          if (e.avail <= 2)
-            warnings.innerHTML += `<li>Low stock: ${e.name} (${e.avail})</li>`;
+          if (e.avail === 0) {
+  warnings.innerHTML += `
+    <li style="color:red;font-weight:600;">
+      Out of Stock: ${e.name}
+    </li>`;
+} else if (e.avail <= 2) {
+  warnings.innerHTML += `
+    <li style="color:orange;font-weight:600;">
+      Low Stock: ${e.name} (${e.avail} left)
+    </li>`;
+}
+
           eqTable.innerHTML += `
             <tr>
                 <td>${e.name}</td>
@@ -1066,6 +1074,13 @@
         document.getElementById("available").innerText = availT;
         document.getElementById("borrowed").innerText = totalT - availT;
         document.getElementById("count").innerText = borrowers.length;
+        // Show or hide warning section AFTER generating warnings
+if (warnings.innerHTML.trim() === "") {
+  warningSection.classList.add("hidden");
+} else {
+  warningSection.classList.remove("hidden");
+}
+
       }
 
       // Add/Edit/Delete/Return
