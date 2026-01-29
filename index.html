@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sports Office Login</title>
 
 <style>
@@ -13,32 +14,37 @@
 }
 
 body{
-    height:100vh;
+    min-height:100vh;
+    overflow-x:hidden;
 }
 
 /* MAIN BACKGROUND */
 .wrapper{
-    height:100vh;
+    min-height:100vh;
     background:
         linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
         url("scc4.jpg");
     background-size:cover;
     background-position:center;
+    background-attachment:fixed;
     display:flex;
     align-items:center;
-    padding:100px;
+    justify-content:center;
+    padding:clamp(20px, 5vw, 100px);
     color:white;
 }
 
 /* LEFT CONTENT */
 .left{
     max-width:520px;
+    flex:1;
 }
 
 .left h1{
     font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size:44px;
+    font-size:clamp(28px, 6vw, 44px);
     margin-bottom:15px;
+    line-height:1.2;
 }
 
 .left h1 span{
@@ -47,21 +53,23 @@ body{
 }
 
 .left h3{
-    font-size:20px;
+    font-size:clamp(16px, 4vw, 20px);
     margin-bottom:20px;
+    line-height:1.3;
 }
 
 .left p{
-    font-size:15px;
-    line-height:1.6;
+    font-size:clamp(14px, 2.5vw, 15px);
+    line-height:1.7;
     opacity:0.9;
 }
 
 /* GLASS LOGIN CARD */
 .login-card{
-    margin-left:clamp(40px, 10vw, 160px);
-    width:360px;
-    padding:40px;
+    margin-left:clamp(0px, 5vw, 160px);
+    width:100%;
+    max-width:380px;
+    padding:clamp(30px, 5vw, 40px);
     border-radius:16px;
 
     background:rgba(255,255,255,0.15);
@@ -76,7 +84,7 @@ body{
 
 /* LOGIN TEXT */
 .login-card h2{
-    font-size:28px;
+    font-size:clamp(24px, 5vw, 28px);
     margin-bottom:8px;
 }
 
@@ -84,6 +92,7 @@ body{
     display:block;
     margin-bottom:25px;
     opacity:0.85;
+    font-size:clamp(12px, 2.5vw, 14px);
 }
 
 /* INPUTS */
@@ -94,17 +103,24 @@ body{
 .field label{
     display:block;
     margin-bottom:5px;
-    font-size:14px;
+    font-size:clamp(13px, 2.5vw, 14px);
 }
 
 .field input{
     width:100%;
-    padding:10px;
-    border-radius:6px;
+    padding:clamp(10px, 2vw, 12px);
+    border-radius:8px;
     border:1px solid rgba(255,255,255,0.4);
     background:rgba(255,255,255,0.18);
     color:white;
     outline:none;
+    font-size:15px;
+    transition:all 0.3s ease;
+}
+
+.field input:focus{
+    background:rgba(255,255,255,0.25);
+    border-color:rgba(255,255,255,0.6);
 }
 
 .field input::placeholder{
@@ -115,34 +131,48 @@ body{
 .options{
     display:flex;
     align-items:center;
-    font-size:13px;
+    font-size:clamp(12px, 2.5vw, 13px);
     margin-bottom:20px;
 }
 
 .options input{
     margin-right:8px;
+    cursor:pointer;
+}
+
+.options span{
+    cursor:pointer;
+    user-select:none;
 }
 
 /* BUTTON */
 button{
     width:100%;
-    padding:11px;
+    padding:clamp(10px, 2vw, 12px);
     background:#0f766e;
     border:none;
     color:white;
-    font-size:15px;
+    font-size:clamp(14px, 2.5vw, 15px);
+    font-weight:500;
     border-radius:25px;
     cursor:pointer;
+    transition:all 0.3s ease;
 }
 
 button:hover{
     background:#115e59;
+    transform:translateY(-2px);
+    box-shadow:0 4px 12px rgba(15, 118, 110, 0.4);
+}
+
+button:active{
+    transform:translateY(0);
 }
 
 /* LINKS */
 .links{
     margin-top:15px;
-    font-size:13px;
+    font-size:clamp(12px, 2.5vw, 13px);
 }
 
 .links a{
@@ -150,25 +180,123 @@ button:hover{
     color:#fbbf24;
     text-decoration:none;
     margin-top:5px;
+    transition:opacity 0.2s ease;
+}
+
+.links a:hover{
+    opacity:0.8;
+    text-decoration:underline;
 }
 
 #error{
     margin-top:10px;
     color:#ffb4b4;
-    font-size:13px;
+    font-size:clamp(12px, 2.5vw, 13px);
     text-align:center;
+    padding:8px;
+    background:rgba(255,0,0,0.15);
+    border-radius:6px;
+    border:1px solid rgba(255,180,180,0.3);
 }
 
-/* RESPONSIVE */
-@media(max-width:900px){
+/* RESPONSIVE TABLET */
+@media(max-width:1024px){
+    .wrapper{
+        padding:40px;
+    }
+    
+    .login-card{
+        margin-left:clamp(30px, 5vw, 80px);
+    }
+}
+
+/* RESPONSIVE MOBILE */
+@media(max-width:768px){
     .wrapper{
         flex-direction:column;
-        padding:40px;
+        padding:30px 20px;
         text-align:center;
+        justify-content:center;
+    }
+    
+    .left{
+        margin-bottom:30px;
     }
 
     .login-card{
-        margin:40px 0 0;
+        margin:0 auto;
+        max-width:100%;
+    }
+    
+    .left h1{
+        margin-bottom:12px;
+    }
+    
+    .left h3{
+        margin-bottom:15px;
+    }
+}
+
+/* RESPONSIVE SMALL MOBILE */
+@media(max-width:480px){
+    .wrapper{
+        padding:20px 15px;
+    }
+    
+    .login-card{
+        padding:25px 20px;
+    }
+    
+    .field{
+        margin-bottom:15px;
+    }
+    
+    .login-card small{
+        margin-bottom:20px;
+    }
+}
+
+/* LANDSCAPE MOBILE FIX */
+@media(max-height:500px) and (orientation:landscape){
+    .wrapper{
+        padding:20px;
+        min-height:auto;
+    }
+    
+    .left h1{
+        font-size:24px;
+        margin-bottom:8px;
+    }
+    
+    .left h3{
+        font-size:16px;
+        margin-bottom:10px;
+    }
+    
+    .left p{
+        font-size:13px;
+        line-height:1.5;
+    }
+    
+    .login-card{
+        padding:25px;
+        margin-left:30px;
+    }
+}
+
+/* TOUCH DEVICE OPTIMIZATIONS */
+@media(hover: none) and (pointer: coarse){
+    button{
+        padding:14px;
+    }
+    
+    .field input{
+        padding:12px;
+    }
+    
+    .options input{
+        width:18px;
+        height:18px;
     }
 }
 </style>
@@ -197,21 +325,21 @@ button:hover{
         <form id="loginForm">
             <div class="field">
                 <label>Username</label>
-                <input type="text" id="username" required>
+                <input type="text" id="username" placeholder="Enter username" required autocomplete="username">
             </div>
 
             <div class="field">
                 <label>Password</label>
-                <input type="password" id="password" required>
+                <input type="password" id="password" placeholder="Enter password" required autocomplete="current-password">
             </div>
 
             <div class="options">
-                <input type="checkbox">
+                <input type="checkbox" id="remember">
                 <span>Keep me logged in</span>
             </div>
 
             <button type="submit">Log in</button>
-            <p id="error"></p>
+            <p id="error" style="display:none;"></p>
         </form>
 
     </div>
@@ -222,13 +350,20 @@ button:hover{
 document.getElementById("loginForm").addEventListener("submit", function(e){
     e.preventDefault();
 
-    const u = username.value;
+    const u = username.value.trim();
     const p = password.value;
+    const errorElement = document.getElementById("error");
 
     if(u === "admin" && p === "1234"){
-        window.location.href = "dashboard.html";
+        window.location.href = "sports-equipment-system-responsive.html";
     }else{
-        error.textContent = "Invalid username or password";
+        errorElement.textContent = "Invalid username or password";
+        errorElement.style.display = "block";
+        
+        // Clear error after 3 seconds
+        setTimeout(() => {
+            errorElement.style.display = "none";
+        }, 3000);
     }
 });
 </script>
