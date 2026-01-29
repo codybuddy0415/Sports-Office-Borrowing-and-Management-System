@@ -2,118 +2,314 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sports Equipment Borrowing System</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-      body {
-        margin: 0;
-        font-family: Segoe UI;
-        background: #f7fafc;
-        color: #111;
+      :root {
+        /* Light Theme - Softer, More Chill Colors */
+        --primary: #6366f1;
+        --primary-dark: #4f46e5;
+        --primary-light: #818cf8;
+        --secondary: #14b8a6;
+        --accent: #f59e0b;
+        --success: #10b981;
+        --warning: #f59e0b;
+        --danger: #ef4444;
+        --dark: #1e293b;
+        --dark-secondary: #334155;
+        --light-bg: #f8fafc;
+        --card-bg: #ffffff;
+        --text-primary: #1e293b;
+        --text-secondary: #64748b;
+        --border: #e2e8f0;
+        --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+        --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+        --shadow-hover: 0 12px 24px rgba(99, 102, 241, 0.12);
       }
+
+      body.dark {
+        --primary: #818cf8;
+        --primary-dark: #6366f1;
+        --primary-light: #a5b4fc;
+        --light-bg: #0f172a;
+        --card-bg: #1e293b;
+        --text-primary: #f1f5f9;
+        --text-secondary: #94a3b8;
+        --border: #334155;
+        --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+        --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+        --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+        --shadow-hover: 0 12px 24px rgba(129, 140, 248, 0.15);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        background: var(--light-bg);
+        color: var(--text-primary);
+        transition: background 0.3s ease, color 0.3s ease;
+        line-height: 1.6;
+      }
+
+      /* Typography - More Relaxed */
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+        line-height: 1.3;
+      }
+
+      h1 {
+        font-size: clamp(24px, 5vw, 32px);
+        margin-bottom: 8px;
+        color: var(--text-primary);
+      }
+
+      /* Top Header - Simplified */
       .top-header {
-        height: 55px;
-        background: #fff;
-        border-bottom: 1px solid #ddd;
+        height: 64px;
+        background: var(--card-bg);
+        border-bottom: 1px solid var(--border);
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0 20px;
+        padding: 0 clamp(16px, 4vw, 32px);
+        box-shadow: var(--shadow-sm);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        backdrop-filter: blur(10px);
       }
+
       .top-header h2 {
-        font-size: 18px;
+        font-size: clamp(16px, 3vw, 18px);
         font-weight: 600;
-        color: #203a43;
+        color: var(--text-primary);
       }
+
       .header-right {
         display: flex;
         align-items: center;
-        gap: 15px;
+        gap: 12px;
         font-size: 13px;
+        color: var(--text-secondary);
       }
+
       .theme-toggle {
-        background: none;
-        border: none;
+        background: var(--light-bg);
+        border: 1px solid var(--border);
         cursor: pointer;
         font-size: 16px;
-        color: #555;
+        color: var(--text-primary);
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
       }
+
+      .theme-toggle:hover {
+        background: var(--primary);
+        color: white;
+      }
+
+      /* Container */
       .container {
         display: flex;
         height: 100vh;
       }
+      /* Sidebar - Mobile Friendly */
       .sidebar {
-        width: 230px;
-        background: #0f172a;
-        color: white;
+        width: 260px;
+        background: var(--card-bg);
+        border-right: 1px solid var(--border);
         padding: 20px;
         display: flex;
         flex-direction: column;
+        transition: all 0.3s ease;
+        position: relative;
       }
+
+      .mobile-menu-toggle {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 200;
+        background: var(--primary);
+        color: white;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        border: none;
+        box-shadow: var(--shadow-lg);
+        cursor: pointer;
+        font-size: 20px;
+      }
+
+      .sidebar-logo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 24px;
+        padding: 16px;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        border-radius: 12px;
+      }
+
+      .sidebar-logo img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        margin-bottom: 10px;
+      }
+
+      .sidebar-logo h3 {
+        color: white;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: center;
+      }
+
       .sidebar button {
         width: 100%;
-        padding: 13px;
-        margin-bottom: 8px;
+        padding: 12px 16px;
+        margin-bottom: 6px;
         border: none;
-        background: #142346;
-        color: white;
-        border-radius: 10px;
+        background: var(--light-bg);
+        color: var(--text-primary);
+        border-radius: 8px;
         cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        font-family: "Inter", sans-serif;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 10px;
       }
+
+      .sidebar button:hover {
+        background: var(--primary);
+        color: white;
+        transform: translateX(2px);
+      }
+
+      .sidebar button.active {
+        background: var(--primary);
+        color: white;
+      }
+
       .sidebar button.logout {
-        background: #740909;
+        background: #fee2e2;
+        color: #dc2626;
         margin-top: auto;
       }
+
+      body.dark .sidebar button.logout {
+        background: #7f1d1d;
+        color: #fca5a5;
+      }
+
+      .sidebar button.logout:hover {
+        background: #dc2626;
+        color: white;
+      }
+
+      /* Admin Profile */
+      .admin-profile {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--light-bg);
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        border: 1px solid var(--border);
+            /* FIXED LOCATION */
+        position: absolute;
+        bottom: 65px; /* sits above logout */
+        left: 20px;
+        right: 20px;
+      }
+
+      .admin-profile img {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--primary);
+      }
+
+      .admin-profile div {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .admin-profile strong {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+
+      .admin-profile span {
+        font-size: 11px;
+        color: var(--text-secondary);
+      }
+
+      /* Main Content */
       .main {
         flex: 1;
-        padding: 20px;
+        padding: clamp(16px, 4vw, 28px);
         overflow: auto;
         position: relative;
       }
-      .mode-toggle {
-        position: absolute;
-        top: 15px;
-        right: 20px;
-        cursor: pointer;
-        font-size: 16px;
-        width: 32px;
-        height: 32px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        color: #334155;
-      }
-      .mode-toggle:hover {
-        background: rgba(0, 0, 0, 0.08);
-      }
+
+      /* Dashboard Stats - Responsive Grid */
       .stats {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 10px;
-        margin-bottom: 15px;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        margin-bottom: 24px;
       }
 
-      .section {
-        background: white;
-        padding: 20px;
-        border-radius: 8px;
-        margin-bottom: 15px;
-        border: px solid #9a9a9b;
-        box-shadow: 0px 5px 15px rgba(8, 44, 206, 0.555);
-      }
-      /* ===== DASHBOARD CARDS (NEW STYLE) ===== */
+      /* Dashboard Cards - Softer Design */
       .dash-card {
-        background: white;
-        border-radius: 14px;
+        background: var(--card-bg);
+        border-radius: 12px;
         overflow: hidden;
-        box-shadow: 0px 3px 10px rgba(8, 44, 206, 0.555);
+        box-shadow: var(--shadow-sm);
+        transition: all 0.2s ease;
+        border: 1px solid var(--border);
       }
 
-      /* Gray header */
+      .dash-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-hover);
+      }
+
       .dash-top {
         background: #f1f2f3bb;
         padding: 15px 18px;
@@ -127,437 +323,522 @@
       }
 
       .dash-top i {
-        font-size: 18px;
+        font-size: 20px;
+        color: var(--primary);
+        opacity: 0.6;
       }
 
-      /* Body */
       .dash-body {
-        padding: 5px;
+        padding: 20px;
         text-align: center;
       }
 
       .dash-body h2 {
-        font-size: 26px;
+        font-size: clamp(32px, 6vw, 42px);
+        font-weight: 700;
         margin: 0;
-        color: #0f172a;
+        color: var(--primary);
       }
 
       .dash-sub {
         font-size: 12px;
-        color: #94a3b8;
+        color: var(--text-secondary);
         margin-top: 6px;
+        font-weight: 400;
       }
 
-      .hidden {
-        display: none;
+      /* Sections */
+      .section {
+        background: var(--card-bg);
+        padding: 20px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-sm);
       }
+
+      .section h3 {
+        margin-bottom: 16px;
+        font-size: 18px;
+        color: var(--text-primary);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      /* Warning Section */
+      #warningSection {
+        background: linear-gradient(135deg, #fef2f2, #fee2e2);
+        border-left: 4px solid var(--danger);
+      }
+
+      body.dark #warningSection {
+        background: linear-gradient(135deg, #450a0a, #7f1d1d);
+      }
+
+      #warnings li {
+        padding: 6px 0;
+        font-weight: 500;
+        list-style: none;
+        padding-left: 20px;
+        position: relative;
+        font-size: 14px;
+      }
+
+      #warnings li::before {
+        content: "⚠";
+        position: absolute;
+        left: 0;
+        font-size: 14px;
+      }
+
+      /* Tables - Responsive */
+      .table-box {
+        background: var(--card-bg);
+        border-radius: 12px;
+        overflow-x: auto;
+        overflow-y: visible;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-sm);
+      }
+
       table {
         width: 100%;
         border-collapse: collapse;
+        min-width: 800px;
       }
-      th,
+
+      thead {
+        background: var(--light-bg);
+      }
+
+      th {
+        padding: 12px;
+        text-align: left;
+        font-weight: 1000;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--text-secondary);
+        border-bottom: 1px solid var(--border);
+        white-space: nowrap;
+      }
+
       td {
-        padding: 10px;
-        border-bottom: 1px solid #ddd;
-        text-align: center;
-        outline: #020617;
+        padding: 12px;
+        border-bottom: 1px solid var(--border);
+        font-size: 15px;
+        color: var(--text-primary);
       }
-      input,
-      select {
-        width: 100%;
-        padding: 6px;
-        margin-bottom: 8px;
-        border: 1px solid #cbd5e1;
-        border-radius: 5px;
+
+      tbody tr {
+        transition: all 0.2s ease;
       }
-      button.action {
-        background: #22c55e;
-        border: none;
-        color: white;
-        padding: 6px 10px;
-        border-radius: 5px;
-        cursor: pointer;
+
+      tbody tr:hover {
+        background: var(--light-bg);
       }
-      button.return {
-        background: #f97316;
-      }
-      button.print {
-        background: #2563eb;
-      }
-      button.filter {
-        background: #0ea5e9;
-      }
-      button.reset {
-        background: #64748b;
-      }
+
+      /* Badges - Softer */
       .badge {
         padding: 4px 10px;
-        border-radius: 20px;
-        font-size: 12px;
+        border-radius: 6px;
+        font-size: 11px;
         font-weight: 600;
         display: inline-block;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
       }
+
       .badge.new {
-        background: #ecfeff;
-        color: #155e75;
+        background: #e0f2fe;
+        color: #0369a1;
       }
+
+      body.dark .badge.new {
+        background: #0c4a6e;
+        color: #bae6fd;
+      }
+
       .badge.good {
-        background: #dcfce7;
-        color: #166534;
+        background: #d1fae5;
+        color: #065f46;
       }
+
+      body.dark .badge.good {
+        background: #064e3b;
+        color: #a7f3d0;
+      }
+
       .badge.fair {
         background: #fef3c7;
         color: #92400e;
       }
+
+      body.dark .badge.fair {
+        background: #78350f;
+        color: #fde68a;
+      }
+
       .badge.bad {
         background: #fee2e2;
         color: #991b1b;
       }
-      .actions i {
-        cursor: pointer;
-        margin-right: 10px;
-        color: #64748b;
+
+      body.dark .badge.bad {
+        background: #7f1d1d;
+        color: #fca5a5;
       }
-      .actions i:hover {
-        color: #2563eb;
-      }
+
+      /* Status Pills */
       .status-pill {
         padding: 4px 12px;
-        border-radius: 20px;
-        font-size: 12px;
+        border-radius: 6px;
+        font-size: 11px;
         font-weight: 600;
         color: white;
         display: inline-block;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
       }
+
       .status-pill.borrowed {
-        background: #f59e0b;
+        background: var(--warning);
       }
+
       .status-pill.returned {
-        background: #22c55e;
+        background: var(--success);
       }
+
       .status-pill.overdue {
-        background: #dc2626;
+        background: var(--danger);
       }
-      body.dark {
-        background: #121212;
-        color: white;
+
+      /* Actions */
+      .actions {
+        display: flex;
+        gap: 10px;
+        align-items: center;
       }
-      body.dark .sidebar {
-        background: #020617;
+
+      .actions i {
+        cursor: pointer;
+        color: var(--text-secondary);
+        font-size: 14px;
+        transition: all 0.2s ease;
       }
-      body.dark .card,
-      .dark .section,
-      .dark table {
-        background: #020617;
-        color: white;
+
+      .actions i:hover {
+        color: var(--primary);
+        transform: scale(1.15);
       }
-      body.dark th,
-      body.dark td {
-        border-color: #1e293b;
+
+      .actions .fa-trash:hover {
+        color: var(--danger);
       }
-      body.dark .top-header {
-        background: #1e1e1e;
-        border-color: #333;
-      }
-      body.dark h2 {
-        color: white;
-      }
-      .table-box {
-        background: white;
+
+      /* Inputs - Cleaner */
+      input,
+      select {
+        width: 100%;
+        padding: 10px 14px;
+        margin-bottom: 12px;
+        border: 1px solid var(--border);
         border-radius: 8px;
-        overflow: hidden;
-        border: 0.5px solid #9a9a9b;
-        box-shadow: 0px 5px 15px rgba(7, 164, 236, 0.25);
+        font-size: 14px;
+        font-family: "Inter", sans-serif;
+        background: var(--card-bg);
+        color: var(--text-primary);
+        transition: all 0.2s ease;
       }
 
-      body.dark .dash-card {
-        background: #020617;
+      input:focus,
+      select:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
       }
 
-      body.dark .dash-top {
-        background: #1e293b;
-        color: #e5e7eb;
-      }
-
-      body.dark .dash-body h2 {
+      /* Buttons - Softer */
+      button.action {
+        background: var(--success);
+        border: none;
         color: white;
+        padding: 8px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 500;
+        font-family: "Inter", sans-serif;
+        transition: all 0.2s ease;
+        font-size: 13px;
       }
 
-      body.dark .dash-sub {
-        color: #94a3b8;
+      button.action:hover {
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
       }
 
-      /* Top actions container */
+      button.return {
+        background: var(--warning);
+      }
+
+      button.print {
+        background: var(--primary);
+      }
+
+      button.filter {
+        background: var(--secondary);
+      }
+
+      button.reset {
+        background: #64748b;
+      }
+
+      /* Top Actions - Responsive */
       .top-actions {
         display: flex;
         justify-content: flex-end;
         align-items: center;
         gap: 10px;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
       }
 
-      /* Search input style */
       .top-actions input[type="text"] {
-        width: 250px;
-        padding: 8px 12px;
-        border-radius: 8px;
-        border: 1px solid #cbd5e1;
-        font-size: 14px;
-        margin-bottom: auto;
+        width: 100%;
+        max-width: 280px;
+        margin-bottom: 0;
       }
 
-      /* Aesthetic Add buttons */
       .add-btn,
       .add-loan-btn {
-        background: #2563eb;
+        background: var(--primary);
         color: white;
         border: none;
-        padding: 9px 18px;
-        border-radius: 10px;
+        padding: 10px 18px;
+        border-radius: 8px;
         cursor: pointer;
-        font-size: 14px;
+        font-size: 13px;
+        font-weight: 500;
         display: flex;
         align-items: center;
         gap: 6px;
-        transition: 0.3s;
+        transition: all 0.2s ease;
+        white-space: nowrap;
       }
+
       .add-btn:hover,
       .add-loan-btn:hover {
-        background: #1d4ed8;
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
       }
-      /* ===== OVERLAY MODAL ===== */
+
+      /* Modal - Responsive */
       .modal {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.55);
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(4px);
         display: flex;
         align-items: center;
         justify-content: center;
-        z-index: 999;
-      }
-
-      .hidden {
-        display: none !important;
+        z-index: 1000;
+        padding: 20px;
       }
 
       .modal-box {
-        background: white;
-        width: 420px;
-        max-width: 90%;
-        padding: 25px;
+        background: var(--card-bg);
+        width: 100%;
+        max-width: 450px;
+        padding: 24px;
         border-radius: 12px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        box-shadow: var(--shadow-lg);
         position: relative;
+        border: 1px solid var(--border);
+        max-height: 90vh;
+        overflow-y: auto;
       }
 
       .modal-box h2 {
-        margin-bottom: 15px;
+        margin-bottom: 20px;
+        color: var(--text-primary);
+        font-size: 20px;
       }
 
       .modal-close {
         position: absolute;
         top: 12px;
-        right: 15px;
+        right: 12px;
         font-size: 18px;
         cursor: pointer;
-      }
-
-      body.dark .modal-box {
-        background: #020617;
-        color: white;
-        border: 1px solid white;
-      }
-
-      #focusBtn:focus {
-        background: #0ea5e9;
-      }
-
-      .sidebar-logo {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 1px;
-      }
-
-      .sidebar-logo img {
-        width: 55px;
-        height: 55px;
-        border-radius: 50%;
-        object-fit: cover;
-      }
-
-      .admin-profile {
+        color: var(--text-secondary);
+        width: 28px;
+        height: 28px;
         display: flex;
         align-items: center;
-        gap: 10px;
-        background: #142346;
-        padding: 10px;
-        border-radius: 8px;
-        width: 210px;
-
-        /* FIXED LOCATION */
-        position: absolute;
-        bottom: 18px; /* sits above logout */
-        left: 20px;
-        right: 20px;
+        justify-content: center;
+        border-radius: 6px;
+        transition: all 0.2s ease;
       }
 
-      .admin-profile img {
-        width: 30px;
-        height: 25px;
-        border-radius: 50%;
-        object-fit: cover;
+      .modal-close:hover {
+        background: var(--light-bg);
+        color: var(--danger);
       }
 
-      .admin-profile strong {
-        font-size: 14px;
+      /* Hidden */
+      .hidden {
+        display: none !important;
       }
 
-      .admin-profile span {
-        font-size: 12px;
-        color: #cbd5e1;
-      }
-      /* ===============================
-   📱 MOBILE RESPONSIVE STYLES
-   =============================== */
-
+      /* Mobile Responsive */
       @media (max-width: 1024px) {
         .stats {
           grid-template-columns: repeat(2, 1fr);
         }
       }
 
-      /* ===== MOBILE VIEW ===== */
       @media (max-width: 768px) {
-        body {
+        .container {
+          position: relative;
+        }
+
+        .sidebar {
+          position: fixed;
+          top: 64px;
+          left: -100%;
+          width: 280px;
+          height: calc(100vh - 64px);
+          z-index: 150;
+          box-shadow: var(--shadow-lg);
+          transition: left 0.3s ease;
+        }
+
+        .sidebar.active {
+          left: 0;
+        }
+
+        .mobile-menu-toggle {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .main {
+          width: 100%;
+          padding: 16px;
+        }
+
+        .top-header h2 {
           font-size: 14px;
         }
 
-        .container {
-          flex-direction: column;
-          height: auto;
+        .header-right span {
+          display: none;
         }
 
-        /* Header */
-        .top-header {
-          flex-direction: column;
-          height: auto;
-          gap: 5px;
-          padding: 10px;
-        }
-
-        /* Sidebar */
-        .sidebar {
-          width: 100%;
-          flex-direction: row;
-          flex-wrap: wrap;
-          justify-content: center;
-          padding: 10px;
-        }
-
-        .sidebar-logo {
-          width: 100%;
-          justify-content: center;
-        }
-
-        .sidebar button {
-          width: 48%;
-          margin: 4px;
-          font-size: 13px;
-        }
-
-        .sidebar button.logout {
-          width: 100%;
-        }
-
-        .admin-profile {
-          width: 100%;
-          justify-content: center;
-          margin: 10px 0;
-        }
-
-        /* Main content */
-        .main {
-          padding: 10px;
-        }
-
-        /* Dashboard cards */
         .stats {
-          grid-template-columns: 1fr;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 12px;
         }
 
-        .card {
-          padding: 20px;
+        .dash-body h2 {
+          font-size: 28px;
         }
 
-        /* Top action buttons */
         .top-actions {
-          flex-direction: column;
-          align-items: stretch;
+          justify-content: stretch;
         }
 
-        .top-actions input {
-          width: 100%;
+        .top-actions input[type="text"] {
+          max-width: 100%;
         }
 
         .add-btn,
         .add-loan-btn {
-          width: 100%;
+          flex: 1;
           justify-content: center;
         }
 
-        /* Tables */
-        .table-box {
-          overflow-x: auto;
-        }
-
         table {
-          min-width: 650px;
+          font-size: 12px;
         }
 
-        /* Modals */
-        .modal-box {
-          width: 95%;
-          padding: 20px;
+        th,
+        td {
+          padding: 8px;
         }
 
-        .modal-box h2 {
-          font-size: 18px;
+        .section {
+          padding: 16px;
         }
       }
 
-      /* ===== EXTRA SMALL PHONES ===== */
       @media (max-width: 480px) {
-        .sidebar button {
-          width: 100%;
+        .stats {
+          grid-template-columns: 1fr;
         }
 
-        .top-header h2 {
-          font-size: 16px;
-          text-align: center;
+        .top-header {
+          height: auto;
+          padding: 12px 16px;
         }
 
-        .header-right {
-          flex-direction: column;
-          gap: 5px;
+        h1 {
+          font-size: 20px;
         }
 
-        input,
-        select {
-          font-size: 14px;
+        .modal-box {
+          padding: 20px;
         }
 
-        button {
-          font-size: 14px;
+        .actions {
+          gap: 8px;
         }
+      }
+
+      /* Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: var(--light-bg);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 4px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--text-secondary);
+      }
+
+      /* Overlay for mobile menu */
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 64px;
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 64px);
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 140;
+      }
+
+      .overlay.active {
+        display: block;
       }
     </style>
   </head>
   <body>
     <header class="top-header">
-      <h2>Sports Equipment Borrowing System</h2>
+      <h2>Sports Equipment System</h2>
       <div class="header-right">
         <span id="currentDate"></span>
         <button class="theme-toggle" onclick="toggleTheme()">
@@ -566,18 +847,32 @@
       </div>
     </header>
 
+    <div class="overlay" onclick="toggleMobileMenu()"></div>
+
     <div class="container">
       <!-- Sidebar -->
-      <div class="sidebar">
+      <div class="sidebar" id="sidebar">
         <div class="sidebar-logo">
           <img src="SCC logo 2.png" alt="SCC Logo" />
           <h3>SCC Sports Office</h3>
         </div>
 
-        <button id="focusBtn" onclick="show('dashboard')">Dashboard</button>
-        <button id="focusBtn" onclick="show('equipment')">Equipment</button>
-        <button id="focusBtn" onclick="show('borrow')">Borrow</button>
-        <button id="focusBtn" onclick="show('reports')">Reports</button>
+        <button onclick="show('dashboard'); closeMobileMenu()">
+          <i class="fas fa-home"></i>
+          <span>Dashboard</span>
+        </button>
+        <button onclick="show('equipment'); closeMobileMenu()">
+          <i class="fas fa-box"></i>
+          <span>Equipment</span>
+        </button>
+        <button onclick="show('borrow'); closeMobileMenu()">
+          <i class="fas fa-clipboard-list"></i>
+          <span>Borrow</span>
+        </button>
+        <button onclick="show('reports'); closeMobileMenu()">
+          <i class="fas fa-chart-bar"></i>
+          <span>Reports</span>
+        </button>
 
         <div class="admin-profile">
           <img src="SCC logo 2.png" alt="Admin" />
@@ -588,21 +883,25 @@
         </div>
 
         <button class="logout" onclick="logout()">
-          <i class="fas fa-sign-out-alt"></i> Logout
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Logout</span>
         </button>
       </div>
 
+      <!-- Mobile Menu Toggle -->
+      <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
+
       <!-- Main -->
       <div class="main">
-        <button class="hidden" onclick="toggleTheme()"></button>
-
         <!-- Dashboard -->
         <div id="dashboard">
           <h1>Dashboard</h1>
           <div class="stats">
             <div class="dash-card">
               <div class="dash-top">
-                <span>TOTAL EQUIPMENT</span>
+                <span>Total Equipment</span>
                 <i class="fas fa-box"></i>
               </div>
               <div class="dash-body">
@@ -613,7 +912,7 @@
 
             <div class="dash-card">
               <div class="dash-top">
-                <span>BORROWED</span>
+                <span>Borrowed</span>
                 <i class="fas fa-clipboard-list"></i>
               </div>
               <div class="dash-body">
@@ -624,7 +923,7 @@
 
             <div class="dash-card">
               <div class="dash-top">
-                <span>AVAILABLE</span>
+                <span>Available</span>
                 <i class="fas fa-clipboard-check"></i>
               </div>
               <div class="dash-body">
@@ -635,7 +934,7 @@
 
             <div class="dash-card">
               <div class="dash-top">
-                <span>BORROWERS</span>
+                <span>Borrowers</span>
                 <i class="fas fa-user-alt"></i>
               </div>
               <div class="dash-body">
@@ -644,60 +943,69 @@
               </div>
             </div>
           </div>
+
           <div class="section hidden" id="warningSection">
-  <h3>
-    <i class="fas fa-warning" style="font-size: 25px; color: rgba(255, 0, 0, 0.829)"></i>
-    Warnings
-  </h3>
-  <ul id="warnings"></ul>
-</div>
+            <h3>
+              <i class="fas fa-exclamation-triangle"></i>
+              Warnings
+            </h3>
+            <ul id="warnings"></ul>
+          </div>
 
           <div class="section">
             <h3>Current Borrowers</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Equipment</th>
-                  <th>Qty</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody id="dashboardBorrowers"></tbody>
-            </table>
+            <div class="table-box">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Equipment</th>
+                    <th>Qty</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="dashboardBorrowers"></tbody>
+              </table>
+            </div>
           </div>
+
           <div class="section">
             <h3>Equipment Inventory</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Equipment</th>
-                  <th>Total</th>
-                  <th>Available</th>
-                  <th>Borrowed</th>
-                  <th>Status</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody id="dashboardInventory"></tbody>
-            </table>
+            <div class="table-box">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Equipment</th>
+                    <th>Total</th>
+                    <th>Available</th>
+                    <th>Borrowed</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="dashboardInventory"></tbody>
+              </table>
+            </div>
           </div>
         </div>
 
         <!-- Equipment Management -->
         <div id="equipment" class="hidden">
           <h1>Inventory Management</h1>
-          <p>Track and manage sports equipment.</p>
+          <p style="color: var(--text-secondary); margin-bottom: 20px;">
+            Track and manage sports equipment.
+          </p>
           <div class="top-actions">
             <input
               type="text"
-              placeholder="🔎︎ Search equipment..."
+              placeholder="🔎 Search equipment..."
               onkeyup="searchEquipment(this.value)"
             />
             <button class="add-btn" onclick="toggleAddForm()">
               <i class="fas fa-plus"></i> Add Item
             </button>
           </div>
+
           <div id="addModal" class="modal hidden">
             <div class="modal-box">
               <div class="modal-close" onclick="toggleAddForm()">
@@ -741,17 +1049,20 @@
         <!-- Borrow Management -->
         <div id="borrow" class="hidden">
           <h1>Borrow Management</h1>
-          <p>Manage student loans and returns.</p>
+          <p style="color: var(--text-secondary); margin-bottom: 20px;">
+            Manage student loans and returns.
+          </p>
           <div class="top-actions">
             <input
               type="text"
-              placeholder="🔎︎ Search student or item..."
+              placeholder="🔎 Search student or item..."
               onkeyup="searchBorrowers(this.value)"
             />
             <button class="add-loan-btn" onclick="toggleBorrowForm()">
               <i class="fas fa-plus"></i> New Loan
             </button>
           </div>
+
           <div id="borrowModal" class="modal hidden">
             <div class="modal-box">
               <div class="modal-close" onclick="toggleBorrowForm()">
@@ -802,9 +1113,10 @@
               <i class="fas fa-filter"></i> Filter
             </button>
             <button class="action print" onclick="window.print()">
-              Print / PDF
+              <i class="fas fa-print"></i> Print
             </button>
           </div>
+
           <div id="filterModal" class="modal hidden">
             <div class="modal-box">
               <div class="modal-close" onclick="toggleFilterModal()">
@@ -813,52 +1125,58 @@
 
               <h3>Filter Reports</h3>
 
-              <label>From Date</label>
+              <label style="display: block; margin-bottom: 4px; font-size: 13px; font-weight: 500;">From Date</label>
               <input type="date" id="fromDate" />
 
-              <label>To Date</label>
+              <label style="display: block; margin-bottom: 4px; font-size: 13px; font-weight: 500;">To Date</label>
               <input type="date" id="toDate" />
 
-              <div style="display: flex; gap: 10px; margin-top: 15px">
-                <button class="action filter" onclick="applyReportFilter()">
+              <div style="display: flex; gap: 10px; margin-top: 10px">
+                <button class="action filter" onclick="applyReportFilter()" style="flex: 1;">
                   Apply
                 </button>
-                <button class="action reset" onclick="resetReports()">
+                <button class="action reset" onclick="resetReports()" style="flex: 1;">
                   Reset
                 </button>
               </div>
             </div>
           </div>
+
           <div class="section">
             <h3>Current Borrowers</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>ID</th>
-                  <th>Equipment</th>
-                  <th>Qty</th>
-                  <th>Status</th>
-                  <th>Borrowed</th>
-                </tr>
-              </thead>
-              <tbody id="reportBorrowers"></tbody>
-            </table>
+            <div class="table-box">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>ID</th>
+                    <th>Equipment</th>
+                    <th>Qty</th>
+                    <th>Status</th>
+                    <th>Borrowed</th>
+                  </tr>
+                </thead>
+                <tbody id="reportBorrowers"></tbody>
+              </table>
+            </div>
           </div>
+
           <div class="section">
             <h3>Equipment Inventory</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Equipment</th>
-                  <th>Total</th>
-                  <th>Available</th>
-                  <th>Borrowed</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody id="reportInventory"></tbody>
-            </table>
+            <div class="table-box">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Equipment</th>
+                    <th>Total</th>
+                    <th>Available</th>
+                    <th>Borrowed</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="reportInventory"></tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -879,6 +1197,27 @@
           .querySelectorAll(".main>div")
           .forEach((d) => d.classList.add("hidden"));
         document.getElementById(id).classList.remove("hidden");
+
+        // Update active button
+        document.querySelectorAll(".sidebar button").forEach((btn) => {
+          btn.classList.remove("active");
+        });
+        event.target.closest("button").classList.add("active");
+      }
+
+      // Mobile menu
+      function toggleMobileMenu() {
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.querySelector(".overlay");
+        sidebar.classList.toggle("active");
+        overlay.classList.toggle("active");
+      }
+
+      function closeMobileMenu() {
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.querySelector(".overlay");
+        sidebar.classList.remove("active");
+        overlay.classList.remove("active");
       }
 
       // Dark mode
@@ -904,10 +1243,12 @@
       function toggleBorrowForm() {
         document.getElementById("borrowModal").classList.toggle("hidden");
       }
+
       function toggleFilterModal() {
         document.getElementById("filterModal").classList.toggle("hidden");
       }
-      // Close modal when clicking outside the modal box
+
+      // Close modal when clicking outside
       document.addEventListener("click", function (e) {
         if (e.target.classList.contains("modal")) {
           e.target.classList.add("hidden");
@@ -924,7 +1265,7 @@
         localStorage.setItem("equipments", JSON.stringify(equipments));
         localStorage.setItem("borrowers", JSON.stringify(borrowers));
       }
-      
+
       // Render all
       function render() {
         let eqTable = document.getElementById("eqTable");
@@ -933,6 +1274,8 @@
         let dashboardBorrowers = document.getElementById("dashboardBorrowers");
         let dashboardInventory = document.getElementById("dashboardInventory");
         let reportBorrowers = document.getElementById("reportBorrowers");
+        let warnings = document.getElementById("warnings");
+
         eqTable.innerHTML =
           bEquip.innerHTML =
           borrowTable.innerHTML =
@@ -940,7 +1283,6 @@
           dashboardBorrowers.innerHTML =
           dashboardInventory.innerHTML =
           reportBorrowers.innerHTML =
-          
             "";
 
         let today = new Date().toISOString().split("T")[0];
@@ -956,17 +1298,18 @@
               : e.avail <= 2
                 ? "Low Stock"
                 : "Available";
+
           if (e.avail === 0) {
-  warnings.innerHTML += `
-    <li style="color:red;font-weight:600;">
-      Out of Stock: ${e.name}
-    </li>`;
-} else if (e.avail <= 2) {
-  warnings.innerHTML += `
-    <li style="color:orange;font-weight:600;">
-      Low Stock: ${e.name} (${e.avail} left)
-    </li>`;
-}
+            warnings.innerHTML += `
+              <li style="color:red;font-weight:600;">
+                Out of Stock: ${e.name}
+              </li>`;
+          } else if (e.avail <= 2) {
+            warnings.innerHTML += `
+              <li style="color:orange;font-weight:600;">
+                Low Stock: ${e.name} (${e.avail} left)
+              </li>`;
+          }
 
           eqTable.innerHTML += `
             <tr>
@@ -976,16 +1319,15 @@
                 <td>${e.avail}</td>
                 <td>${e.total}</td>
                 <td>
-                <span class="badge ${statusClass}">${statusText}</span>
-                <div class="actions">
-                <i class="fas fa-pen" onclick="editEquipment(${i})"></i>
-                <i class="fas fa-trash" onclick="deleteEquipment(${i})"></i>
-                </div>
+                  <div class="actions">
+                    <i class="fas fa-pen" onclick="editEquipment(${i})" title="Edit"></i>
+                    <i class="fas fa-trash" onclick="deleteEquipment(${i})" title="Delete"></i>
+                  </div>
                 </td>
             </tr>`;
+
           bEquip.innerHTML += `<option value="${i}">${e.name}</option>`;
 
-          // Dashboard inventory
           dashboardInventory.innerHTML += `
             <tr>
                 <td>${e.name}</td>
@@ -999,7 +1341,7 @@
                     <i class="fas fa-trash" onclick="deleteEquipment(${i})" title="Delete"></i>
                   </div>
                 </td>
-              </tr>`;
+            </tr>`;
         });
 
         // Borrowers
@@ -1012,19 +1354,21 @@
             statusClass = "overdue";
             warnings.innerHTML += `<li>Overdue: ${b.name} (${b.equip})</li>`;
           }
+
           borrowTable.innerHTML += `
-          <tr>
-              <td>${b.name}</td>
-              <td>${b.id}</td>
-              <td>${b.course}</td>
-              <td>${b.equip}</td>
-              <td>${b.qty}</td>
-              <td><span class="status-pill ${statusClass}">${status}</span></td>
-              <td>${b.borrowed}</td>
-              <td>${b.due}</td>
-              <td>${b.returned}</td>
-              <td>${b.status !== "Returned" ? `<button class="action return" onclick="returnItem(${i})">Return</button>` : "—"}</td>
+            <tr>
+                <td>${b.name}</td>
+                <td>${b.id}</td>
+                <td>${b.course}</td>
+                <td>${b.equip}</td>
+                <td>${b.qty}</td>
+                <td><span class="status-pill ${statusClass}">${status}</span></td>
+                <td>${b.borrowed}</td>
+                <td>${b.due}</td>
+                <td>${b.returned}</td>
+                <td>${b.status !== "Returned" ? `<button class="action return" onclick="returnItem(${i})">Return</button>` : "—"}</td>
             </tr>`;
+
           dashboardBorrowers.innerHTML += `
             <tr>
                 <td>${b.name}</td>
@@ -1032,40 +1376,41 @@
                 <td>${b.qty}</td>
                 <td><span class="status-pill ${statusClass}">${status}</span></td>
             </tr>`;
+
           reportBorrowers.innerHTML += `
-          <tr>
-              <td>${b.name}</td>
-              <td>${b.id}</td>
-              <td>${b.equip}</td>
-              <td>${b.qty}</td>
-              <td><span class="status-pill ${statusClass}">${status}</span></td>
-              <td>${b.borrowed}</td>
-          </tr>`;
+            <tr>
+                <td>${b.name}</td>
+                <td>${b.id}</td>
+                <td>${b.equip}</td>
+                <td>${b.qty}</td>
+                <td><span class="status-pill ${statusClass}">${status}</span></td>
+                <td>${b.borrowed}</td>
+            </tr>`;
+        });
 
-          let reportInventory = document.getElementById("reportInventory");
-          reportInventory.innerHTML = "";
+        // Report inventory
+        let reportInventory = document.getElementById("reportInventory");
+        reportInventory.innerHTML = "";
 
-          equipments.forEach((e, i) => {
-            let borrowedQty = e.total - e.avail;
-            let statusClass =
-              e.avail === 0 ? "bad" : e.avail <= 2 ? "fair" : "good";
-            let statusText =
-              e.avail === 0
-                ? "Out of Stock"
-                : e.avail <= 2
-                  ? "Low Stock"
-                  : "Available";
+        equipments.forEach((e) => {
+          let borrowedQty = e.total - e.avail;
+          let statusClass =
+            e.avail === 0 ? "bad" : e.avail <= 2 ? "fair" : "good";
+          let statusText =
+            e.avail === 0
+              ? "Out of Stock"
+              : e.avail <= 2
+                ? "Low Stock"
+                : "Available";
 
-            reportInventory.innerHTML += `
-        <tr>
-          <td>${e.name}</td>
-          <td>${e.total}</td>
-          <td>${e.avail}</td>
-          <td>${borrowedQty}</td>
-          <td><span class="badge ${statusClass}">${statusText}</span></td>
-        </tr>
-  `;
-          });
+          reportInventory.innerHTML += `
+            <tr>
+              <td>${e.name}</td>
+              <td>${e.total}</td>
+              <td>${e.avail}</td>
+              <td>${borrowedQty}</td>
+              <td><span class="badge ${statusClass}">${statusText}</span></td>
+            </tr>`;
         });
 
         // Dashboard stats
@@ -1075,16 +1420,16 @@
         document.getElementById("available").innerText = availT;
         document.getElementById("borrowed").innerText = totalT - availT;
         document.getElementById("count").innerText = borrowers.length;
-        // Show or hide warning section AFTER generating warnings
-if (warnings.innerHTML.trim() === "") {
-  warningSection.classList.add("hidden");
-} else {
-  warningSection.classList.remove("hidden");
-}
 
+        // Show or hide warning section
+        if (warnings.innerHTML.trim() === "") {
+          document.getElementById("warningSection").classList.add("hidden");
+        } else {
+          document.getElementById("warningSection").classList.remove("hidden");
+        }
       }
 
-      // Add/Edit/Delete/Return
+      // Add Equipment
       function addEquipment() {
         let name = document.getElementById("eqName").value;
         let type = document.getElementById("eqType").value;
@@ -1101,6 +1446,7 @@ if (warnings.innerHTML.trim() === "") {
         toggleAddForm();
       }
 
+      // Edit Equipment
       function editEquipment(i) {
         let e = equipments[i];
         let name = prompt("Name", e.name);
@@ -1122,6 +1468,7 @@ if (warnings.innerHTML.trim() === "") {
         render();
       }
 
+      // Delete Equipment
       function deleteEquipment(i) {
         if (borrowers.some((b) => b.idx === i && b.status !== "Returned"))
           return alert("Cannot delete active borrowed equipment");
@@ -1132,6 +1479,7 @@ if (warnings.innerHTML.trim() === "") {
         }
       }
 
+      // Borrow
       function borrow() {
         let i = parseInt(document.getElementById("bEquip").value);
         let q = parseInt(document.getElementById("bQty").value);
@@ -1162,8 +1510,10 @@ if (warnings.innerHTML.trim() === "") {
             "";
         save();
         render();
+        toggleBorrowForm();
       }
 
+      // Return Item
       function returnItem(i) {
         borrowers[i].status = "Returned";
         borrowers[i].returned = new Date().toISOString().split("T")[0];
@@ -1172,12 +1522,12 @@ if (warnings.innerHTML.trim() === "") {
         render();
       }
 
-      // Reports filter/reset
+      // Apply Report Filter
       function applyReportFilter() {
         let from = document.getElementById("fromDate").value;
         let to = document.getElementById("toDate").value;
 
-        render();
+        let reportBorrowers = document.getElementById("reportBorrowers");
 
         if (from || to) {
           reportBorrowers.innerHTML = "";
@@ -1196,33 +1546,29 @@ if (warnings.innerHTML.trim() === "") {
                 statusClass = "overdue";
 
               reportBorrowers.innerHTML += `
-          <tr>
-            <td>${b.name}</td>
-            <td>${b.id}</td>
-            <td>${b.equip}</td>
-            <td>${b.qty}</td>
-            <td><span class="status-pill ${statusClass}">${b.status}</span></td>
-            <td>${b.borrowed}</td>
-          </tr>`;
+                <tr>
+                  <td>${b.name}</td>
+                  <td>${b.id}</td>
+                  <td>${b.equip}</td>
+                  <td>${b.qty}</td>
+                  <td><span class="status-pill ${statusClass}">${b.status}</span></td>
+                  <td>${b.borrowed}</td>
+                </tr>`;
             });
         }
 
-        function resetReports() {
-          document.getElementById("fromDate").value = document.getElementById(
-            "toDate",
-          ).value = "";
-          render();
-          toggleFilterModal();
-        }
+        toggleFilterModal();
       }
 
+      // Reset Reports
       function resetReports() {
-        document.getElementById("fromDate").value = document.getElementById(
-          "toDate",
-        ).value = "";
+        document.getElementById("fromDate").value = "";
+        document.getElementById("toDate").value = "";
         render();
+        toggleFilterModal();
       }
 
+      // Search Equipment
       function searchEquipment(keyword) {
         keyword = keyword.toLowerCase();
         let rows = document.querySelectorAll("#eqTable tr");
@@ -1233,6 +1579,7 @@ if (warnings.innerHTML.trim() === "") {
         });
       }
 
+      // Search Borrowers
       function searchBorrowers(keyword) {
         keyword = keyword.toLowerCase();
         let rows = document.querySelectorAll("#borrowTable tr");
@@ -1241,10 +1588,6 @@ if (warnings.innerHTML.trim() === "") {
           let text = row.innerText.toLowerCase();
           row.style.display = text.includes(keyword) ? "" : "none";
         });
-      }
-
-      function toggleFilterModal() {
-        document.getElementById("filterModal").classList.toggle("hidden");
       }
 
       // Initial render
